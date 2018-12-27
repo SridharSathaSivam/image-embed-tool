@@ -19,8 +19,9 @@
     var dropElement = document.getElementsByClassName('control-fluid')[0];
     // Initialize the uploader component
     var uploadObj = new ej.inputs.Uploader({
-        removing: onFileRemove,
-        dropArea: dropElement
+        asyncSettings: {
+            saveUrl: '/api/Service',
+        }
     });
     uploadObj.appendTo('#fileupload');
 
