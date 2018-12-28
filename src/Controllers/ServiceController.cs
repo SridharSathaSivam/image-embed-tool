@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing;
+using Microsoft.AspNetCore.NodeServices;
 
 
 namespace ImageEmbedTool.Controllers
@@ -73,7 +71,7 @@ namespace ImageEmbedTool.Controllers
 
         // POST: api/Service
         [HttpPost]
-        public string Post(IList<IFormFile> chunkFile, IList<IFormFile> UploadFiles)
+        public string Post(IList<IFormFile> chunkFile, IList<IFormFile> UploadFiles, [FromServices] INodeServices nodeServices)
         {
             long size = 0;
             try
@@ -126,6 +124,7 @@ namespace ImageEmbedTool.Controllers
                                     .FileName
 
                                     .Trim('"');
+                    var imageName = filename;
                     if (string.IsNullOrWhiteSpace(this.hostingEnv.WebRootPath))
                     {
                         this.hostingEnv.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
@@ -139,7 +138,7 @@ namespace ImageEmbedTool.Controllers
                         {
                             file.CopyTo(fs);
                             fs.Flush();
-                            //ImageToBase64(filename);
+                            nodeServices.InvokeAsync<string>("save.js", imageName, Path.GetExtension(imageName));
                         }
                     }
                 }
@@ -164,79 +163,6 @@ namespace ImageEmbedTool.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
-
-        public IActionResult Save(IList<IFormFile> chunkFile, IList<IFormFile> UploadFiles)
-        {
-            long size = 0;
-            
-            try
-            {
-                // for chunk-upload
-                foreach (var file in chunkFile)
-                {
-                    var filename = ContentDispositionHeaderValue
-                                        .Parse(file.ContentDisposition)
-                                        .FileName
-                                        .Trim('"');
-                    filename = hostingEnv.WebRootPath + $@"\{filename}";
-                    size += file.Length;
-
-                    if (!System.IO.File.Exists(filename))
-                    {
-                        using (FileStream fs = System.IO.File.Create(filename))
-                        {
-                            file.CopyTo(fs);
-                            fs.Flush();
-                        }
-                    }
-                    else
-                    {
-                        using (FileStream fs = System.IO.File.Open(filename, FileMode.Append))
-                        {
-                            file.CopyTo(fs);
-                            fs.Flush();
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Response.Clear();
-                Response.StatusCode = 204;
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = "File failed to upload";
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = e.Message;
-            }
-
-            // for normal upload
-            try
-            {
-                foreach (var file in UploadFiles)
-                {
-                    var filename = ContentDispositionHeaderValue
-                                    .Parse(file.ContentDisposition)
-                                    .FileName
-                                    .Trim('"');
-                    filename = hostingEnv.WebRootPath + $@"\{filename}";
-                    size += file.Length;
-                    if (!System.IO.File.Exists(filename))
-                    {
-                        using (FileStream fs = System.IO.File.Create(filename))
-                        {
-                            file.CopyTo(fs);
-                            fs.Flush();
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Response.Clear();
-                Response.StatusCode = 204;
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = "File failed to upload";
-                Response.HttpContext.Features.Get<IHttpResponseFeature>().ReasonPhrase = e.Message;
-            }
-            return Content("");
         }
     }
 }
