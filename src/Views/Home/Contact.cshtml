@@ -48,6 +48,7 @@
         margin-right: auto;
         width: 400px;
     }
+
     textarea {
         width: 380px;
         height: 300px;
@@ -68,6 +69,9 @@
 </div>
 
 <div id="base64" style="display:none;">@Html.Raw(ViewData["Base64"])</div>
+<div style="display:none;">
+    <div id="url"><a href="http://localhost:36501/@Html.Raw(ViewData["Url"])" target="_blank">http://localhost:36501/@Html.Raw(ViewData["Url"])</a></div>
+</div>
 
 
 <script>
@@ -76,12 +80,12 @@
     imgCnt.innerHTML = '<img src="data:image/png;base64,' + base64 + '" />';
     var defaultRTE = new ej.richtexteditor.RichTextEditor({
         toolbarSettings: {
-            items: [ 'SourceCode']
+            items: ['SourceCode']
         },
-        
+
     });
     defaultRTE.appendTo(imgCnt);
-    
+
 
     var css = document.createElement('div');
     css.innerHTML = ' .classname{ background-image: url(" data:image/png;base64,' + base64 + '");}';
@@ -116,6 +120,10 @@
             {
                 header: { 'text': 'BASE 64' },
                 content: plain
+            },
+            {
+                header: { 'text': 'URL' },
+                content: document.getElementById('url')
             }
         ],
 

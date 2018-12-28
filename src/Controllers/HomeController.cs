@@ -23,7 +23,7 @@ namespace ImageEmbedTool.Controllers
         public string ImageToBase64(string file)
         {
             //var path = "D:/00hackathon/starterForked/src/Models/download.png";
-            using (System.Drawing.Image image = System.Drawing.Image.FromFile(this.hostingEnv.WebRootPath+"\\uploadedImages\\" +file))
+            using (System.Drawing.Image image = System.Drawing.Image.FromFile(this.hostingEnv.WebRootPath + "\\uploadedImages\\" + file))
             {
                 using (MemoryStream m = new MemoryStream())
                 {
@@ -68,9 +68,10 @@ namespace ImageEmbedTool.Controllers
 
         public IActionResult Contact(string name)
         {
-            
+
             ViewData["Message"] = "Your contact page.";
             ViewData["Base64"] = this.ImageToBase64(name);
+            ViewData["Url"] = Url.Content("~/uploadedImages/" + name);
 
             return PartialView();
         }
