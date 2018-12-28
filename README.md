@@ -1,4 +1,4 @@
-# Image Embed Tool
+# Image Embed Tool (imageRL)
 
 The Image Embed Tool project, involves in 3 stages such as Uploading, Converting, Accessing.
 
