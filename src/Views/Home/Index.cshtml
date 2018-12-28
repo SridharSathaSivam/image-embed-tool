@@ -14,6 +14,7 @@
         </div>
     </div>
 </div>
+<div id="dialog"></div>
 
 <script>
     var dropElement = document.getElementsByClassName('control-fluid')[0];
@@ -21,9 +22,32 @@
     var uploadObj = new ej.inputs.Uploader({
         asyncSettings: {
             saveUrl: '/api/Service',
+        },
+        success: function (filename) {
+            var ajax = new ej.base.Ajax('Contact/?name=' + fileName, 'GET', true);
+            ajax.send().then();
+            // Rendering Dialog on AJAX success
+            ajax.onSuccess = function (data) {
+                document.getElementById("dialog").ej2_instances[0].content = data;
+                document.getElementById("dialog").ej2_instances[0].show();
+            };
         }
     });
     uploadObj.appendTo('#fileupload');
+
+    function dialogOpen() {
+        eval(this.element.querySelector("script").innerText);
+    }
+
+    var dialogObj = new ej.popups.Dialog({
+        showCloseIcon: true,
+        width: '500px',
+        target: document.getElementById('target'),
+        animationSettings: { effect: 'Zoom' },
+        open: dialogOpen,
+        visible: false,
+    });
+    dialogObj.appendTo('#dialog');
 
     function onFileRemove(args) {
         args.postRawFile = false;

@@ -73,13 +73,35 @@
 <script>
     var base64 = document.getElementById('base64').innerText;
     var imgCnt = document.createElement('div');
-    imgCnt.innerHTML = '<textarea><img src="data:image/png;base64,' + base64 + '" /></textarea>';
+    imgCnt.innerHTML = '<img src="data:image/png;base64,' + base64 + '" />';
+    var defaultRTE = new ej.richtexteditor.RichTextEditor({
+        toolbarSettings: {
+            items: [ 'SourceCode']
+        },
+        
+    });
+    defaultRTE.appendTo(imgCnt);
+    
 
     var css = document.createElement('div');
-    css.innerHTML = '<textarea> .classname{ background-image: url(" data:image/png;base64,' + base64 + '");}<textarea>';
+    css.innerHTML = ' .classname{ background-image: url(" data:image/png;base64,' + base64 + '");}';
+    var defaultRTE1 = new ej.richtexteditor.RichTextEditor({
+        toolbarSettings: {
+            items: ['Copy', 'SourceCode']
+        },
+        height: '300px'
+    });
+    defaultRTE1.appendTo(css);
 
     var plain = document.createElement('div');
-    plain.innerHTML = '<textarea> ' + base64 + ' </textarea>';
+    plain.innerHTML = base64;
+    var defaultRTE2 = new ej.richtexteditor.RichTextEditor({
+        toolbarSettings: {
+            items: ['Copy', 'SourceCode']
+        },
+        height: '300px'
+    });
+    defaultRTE2.appendTo(plain);
 
     var tabObj = new ej.navigations.Tab({
         items: [
@@ -95,7 +117,19 @@
                 header: { 'text': 'BASE 64' },
                 content: plain
             }
-        ]
+        ],
+
+        created: function () {
+            defaultRTE.refresh();
+            defaultRTE1.refresh();
+            defaultRTE2.refresh();
+        },
+
+        selected: function () {
+            defaultRTE.refresh();
+            defaultRTE1.refresh();
+            defaultRTE2.refresh();
+        }
     });
     //Render initialized Tab component
     tabObj.appendTo('#Tab');
