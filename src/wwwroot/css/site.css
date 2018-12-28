@@ -33,3 +33,8 @@
         display: none;
     }
 }
+
+.navbar.navbar-inverse.navbar-fixed-top {
+    background-color: #003058;
+    color:#fff;
+}
