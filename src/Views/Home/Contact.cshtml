@@ -70,7 +70,7 @@
 
 <div id="base64" style="display:none;">@Html.Raw(ViewData["Base64"])</div>
 <div style="display:none;">
-    <div id="url"><a href="http://localhost:36501/@Html.Raw(ViewData["Url"])" target="_blank">http://localhost:36501/@Html.Raw(ViewData["Url"])</a></div>
+    <div id="url"><a href="@Context.Request.Host@Html.Raw(ViewData["Url"])" target="_blank">@Context.Request.Host@Html.Raw(ViewData["Url"])</a></div>
 </div>
 
 
