@@ -59,7 +59,7 @@ namespace ImageEmbedTool.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Gallery()
         {
             ViewData["Message"] = "Your application description page.";
 

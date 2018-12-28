@@ -18,6 +18,16 @@
 
 <script>
     var dropElement = document.getElementsByClassName('control-fluid')[0];
+    var dialogObj = new ej.popups.Dialog({
+        showCloseIcon: true,
+        width: '455px',
+        target: document.getElementById('target'),
+        animationSettings: { effect: 'Zoom' },
+        open: dialogOpen,
+        visible: false,
+    });
+    dialogObj.appendTo('#dialog');
+
     // Initialize the uploader component
     var uploadObj = new ej.inputs.Uploader({
         asyncSettings: {
@@ -29,8 +39,10 @@
                 ajax.send().then();
                 // Rendering Dialog on AJAX success
                 ajax.onSuccess = function (data) {
-                    document.getElementById("dialog").ej2_instances[0].content = data;
-                    document.getElementById("dialog").ej2_instances[0].show();
+                    dialogObj.content = data;
+                    dialogObj.dataBind();
+                    dialogObj.show();
+                   
                 };
             }
             
@@ -40,17 +52,10 @@
 
     function dialogOpen() {
         eval(this.element.querySelector("script").innerText);
+        dialogObj.popupObj.reposition();
     }
 
-    var dialogObj = new ej.popups.Dialog({
-        showCloseIcon: true,
-        width: '500px',
-        target: document.getElementById('target'),
-        animationSettings: { effect: 'Zoom' },
-        open: dialogOpen,
-        visible: false,
-    });
-    dialogObj.appendTo('#dialog');
+   
 
     function onFileRemove(args) {
         args.postRawFile = false;

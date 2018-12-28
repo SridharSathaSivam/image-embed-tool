@@ -50,3 +50,18 @@ body {
 #Tab {
     background:#fff;
 }
+
+#dialog .e-dlg-header-content {
+    position: absolute;
+    right: 15px;
+    z-index:1000;
+}
+
+#dialog .e-dlg-closeicon-btn {
+    position: absolute;
+    right: 0px;
+}
+
+#dialog .e-dlg-content {
+    padding:10px;
+}
