@@ -1,17 +1,88 @@
-﻿@{
-    ViewData["Title"] = "Contact";
-}
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+﻿
+<style>
+    .e-view {
+        position: absolute;
+        bottom: 0;
+    }
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    .e-content .e-item {
+        font-size: 12px;
+        padding: 10px;
+        text-align: justify;
+    }
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    #Tab .e-tab-icon {
+        font-family: 'Socialicons' !important;
+    }
+    .e-toolbar-items{
+        border-bottom: solid 1px #ccc;
+    }
+    .e-tab {
+        border: solid 1px #d3d3d3;
+        border-radius: 10px;
+    }
+
+    #Tab .e-icons.e-tab-icon {
+        position: relative;
+        top: 1px;
+    }
+    .outer {
+        display: table;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .middle {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .inner {
+        margin-left: auto;
+        margin-right: auto;
+        width: 400px;
+    }
+</style>
+<div class="outer">
+    <div class="middle">
+        <div class="inner">
+            <div class="control-section">
+                <div class="content-wrapper">
+                    <div class="content-section" height="500px" width="500px">
+                    <div id="Tab" ></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var tabObj = new ej.navigations.Tab({
+        items: [
+            {
+                header: { 'text': 'HTML' },
+                content: 'Twitter is an online social networking service that enables users to send and read short 140-character ' +
+                    'messages called "tweets". Registered users can read and post tweets, but those who are unregistered can only read ' +
+                    'them. Users access Twitter through the website interface, SMS or mobile device app Twitter Inc. is based in San ' +
+                    'Francisco and has more than 25 offices around the world. Twitter was created in March 2006 by Jack Dorsey, ' +
+                    'Evan Williams, Biz Stone, and Noah Glass and launched in July 2006. The service rapidly gained worldwide popularity, ' +
+                    'with more than 100 million users posting 340 million tweets a day in 2012.The service also handled 1.6 billion ' +
+                    'search queries per day.'
+            },
+            {
+                header: { 'text': 'CSS' },
+                content: 'Sample Data For CSS'
+            },
+            {
+                header: { 'text': 'BASE 64' },
+                content: 'Sample Data For BASE  64'
+            }
+        ]
+    });
+    //Render initialized Tab component
+    tabObj.appendTo('#Tab');
+</script>
