@@ -18,7 +18,7 @@ module.exports = function (callback, file, extension) {
 		var img2 = img[i - 3];
 		if (img1) { imgData["ImageTwo"] = img1 };
 		if (img2) { imgData["ImageThree"] = img2 };
-		data.push(imgData)
+		data.push(imgData);
 	}
 
 	var dataSource = `var dataSource = ${JSON.stringify(data, null, 4)}`;
