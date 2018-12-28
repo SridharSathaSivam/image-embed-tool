@@ -38,3 +38,15 @@
     background-color: #003058;
     color:#fff;
 }
+
+body {
+    background: #e8e8e8;
+}
+
+.e-btn.e-css.e-btn {
+    background: #ababad;
+}
+
+#Tab {
+    background:#fff;
+}

@@ -1,5 +1,5 @@
-﻿
-<style>
+﻿<style>
+
     .e-view {
         position: absolute;
         bottom: 0;
@@ -14,9 +14,11 @@
     #Tab .e-tab-icon {
         font-family: 'Socialicons' !important;
     }
-    .e-toolbar-items{
+
+    .e-toolbar-items {
         border-bottom: solid 1px #ccc;
     }
+
     .e-tab {
         border: solid 1px #d3d3d3;
         border-radius: 10px;
@@ -26,6 +28,7 @@
         position: relative;
         top: 1px;
     }
+
     .outer {
         display: table;
         position: absolute;
@@ -45,6 +48,10 @@
         margin-right: auto;
         width: 400px;
     }
+    textarea {
+        width: 380px;
+        height: 300px;
+    }
 </style>
 <div class="outer">
     <div class="middle">
@@ -52,34 +59,41 @@
             <div class="control-section">
                 <div class="content-wrapper">
                     <div class="content-section" height="500px" width="500px">
-                    <div id="Tab" ></div>
-                        </div>
+                        <div id="Tab"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="base64" style="display:none;">@Html.Raw(ViewData["Base64"])</div>
+
+
 <script>
+    var base64 = document.getElementById('base64').innerText;
+    var imgCnt = document.createElement('div');
+    imgCnt.innerHTML = '<textarea><img src="data:image/png;base64,' + base64 + '" /></textarea>';
+
+    var css = document.createElement('div');
+    css.innerHTML = '<textarea> .classname{ background-image: url(" data:image/png;base64,' + base64 + '");}<textarea>';
+
+    var plain = document.createElement('div');
+    plain.innerHTML = '<textarea> ' + base64 + ' </textarea>';
+
     var tabObj = new ej.navigations.Tab({
         items: [
             {
                 header: { 'text': 'HTML' },
-                content: 'Twitter is an online social networking service that enables users to send and read short 140-character ' +
-                    'messages called "tweets". Registered users can read and post tweets, but those who are unregistered can only read ' +
-                    'them. Users access Twitter through the website interface, SMS or mobile device app Twitter Inc. is based in San ' +
-                    'Francisco and has more than 25 offices around the world. Twitter was created in March 2006 by Jack Dorsey, ' +
-                    'Evan Williams, Biz Stone, and Noah Glass and launched in July 2006. The service rapidly gained worldwide popularity, ' +
-                    'with more than 100 million users posting 340 million tweets a day in 2012.The service also handled 1.6 billion ' +
-                    'search queries per day.'
+                content: imgCnt
             },
             {
                 header: { 'text': 'CSS' },
-                content: 'Sample Data For CSS'
+                content: css
             },
             {
                 header: { 'text': 'BASE 64' },
-                content: 'Sample Data For BASE  64'
+                content: plain
             }
         ]
     });
