@@ -116,10 +116,11 @@ namespace ImageEmbedTool.Controllers
             // for normal upload
             try
             {
+                var lastFile="";
                 foreach (var file in UploadFiles)
                 {
                     
-                    var filename = ContentDispositionHeaderValue
+                    var filename = lastFile = ContentDispositionHeaderValue
                                     .Parse(file.ContentDisposition)
                                     .FileName
 
@@ -142,6 +143,7 @@ namespace ImageEmbedTool.Controllers
                         }
                     }
                 }
+                return lastFile;
             }
             catch (Exception e)
             {

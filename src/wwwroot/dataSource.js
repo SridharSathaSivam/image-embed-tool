@@ -1,15 +1,12 @@
 var dataSource = [
     {
-        "ImageOne": "img1545978401513.png",
-        "ImageTwo": "10.png",
-        "ImageThree": "9.png"
+        "ImageOne": "4.png",
+        "ImageTwo": "7.png",
+        "ImageThree": "6.png"
     },
     {
-        "ImageOne": "8.png",
-        "ImageTwo": "3.png",
-        "ImageThree": "2.png"
-    },
-    {
-        "ImageOne": "1.png"
+        "ImageOne": "3.png",
+        "ImageTwo": "2.png",
+        "ImageThree": "1.png"
     }
 ]

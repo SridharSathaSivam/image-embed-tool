@@ -23,14 +23,17 @@
         asyncSettings: {
             saveUrl: '/api/Service',
         },
-        success: function (filename) {
-            var ajax = new ej.base.Ajax('Contact/?name=' + fileName, 'GET', true);
-            ajax.send().then();
-            // Rendering Dialog on AJAX success
-            ajax.onSuccess = function (data) {
-                document.getElementById("dialog").ej2_instances[0].content = data;
-                document.getElementById("dialog").ej2_instances[0].show();
-            };
+        success: function (e) {
+            if (e.file.name) {
+                var ajax = new ej.base.Ajax('/Home/Contact?name=' + e.file.name , 'GET', true);
+                ajax.send().then();
+                // Rendering Dialog on AJAX success
+                ajax.onSuccess = function (data) {
+                    document.getElementById("dialog").ej2_instances[0].content = data;
+                    document.getElementById("dialog").ej2_instances[0].show();
+                };
+            }
+            
         }
     });
     uploadObj.appendTo('#fileupload');

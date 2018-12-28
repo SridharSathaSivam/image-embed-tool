@@ -72,7 +72,7 @@ namespace ImageEmbedTool.Controllers
             ViewData["Message"] = "Your contact page.";
             ViewData["Base64"] = this.ImageToBase64(name);
 
-            return View();
+            return PartialView();
         }
 
         public IActionResult Error()
